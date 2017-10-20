@@ -8,3 +8,4 @@ CKPT_BASE = "data/ckpts"
 OUTPUT_DIR = "data/outputs"
 
 CONTENT_SHAPE = (1, 474, 712, 3)
+IMAGE_SIZE = CONTENT_SHAPE[1:3]

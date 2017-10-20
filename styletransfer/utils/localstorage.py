@@ -1,5 +1,8 @@
 import numpy as np
 import scipy.misc
+import skimage.transform
+
+from config import config
 
 
 def get_img(src, img_size=False):
@@ -19,3 +22,10 @@ def generateFilenameWithTime():
     timestr = time.strftime("%Y%m%d%H%M%S") + "_" + str(time.clock())[-2:]
     filename = timestr + ".png"
     return filename
+
+def resize_img(image):
+    if image.shape[0] == config.IMAGE_SIZE[0] \
+            and image.shape[1] == config.IMAGE_SIZE[1]:
+        return image
+
+    return skimage.transform.resize(image, config.IMAGE_SIZE)
