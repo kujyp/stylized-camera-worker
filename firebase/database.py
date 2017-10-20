@@ -6,6 +6,7 @@ def database():
     from firebase.app import getDatabase
     db = getDatabase()
     ref = db.child(LISTENING_PATH)
+
     def stream_handler(message):
         print("Message %s" % message)
         print("Event %s" % message["event"])
@@ -13,7 +14,7 @@ def database():
         data = dict(message["data"])
         for idx, key in enumerate(data.keys()):
             value = dict(data.get(key))
-            print("Data %02d %s" % (idx, key))  # {'title': 'Pyrebase', "body": "etc..."}
+            print("Data %02d %s" % (idx, key))
             print("Value / downloadUrl = %s, path = %s" % (value[KEY_DOWNLOADURL], value[KEY_PATH]))
 
     my_stream = ref.stream(stream_handler)
