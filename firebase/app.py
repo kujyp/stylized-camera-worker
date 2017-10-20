@@ -1,8 +1,8 @@
 from pyrebase import pyrebase
 
-from auth.fb_account import config
+from auth.accounts import FIREBASE
 
-firebase = pyrebase.initialize_app(config)
+firebase = pyrebase.initialize_app(FIREBASE.config)
 
 def getFirebase():
     return firebase

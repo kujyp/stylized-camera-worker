@@ -1,14 +1,14 @@
 import os
 from ftplib import FTP, error_perm
 
-from auth import ftp_account
+from auth.accounts import FTP_ACCOUNT
 
 
 def downloadtraineddatafromftp(traindir):
-    ftp_domain = ftp_account.DOMAIN
-    ftp_user = ftp_account.ACCOUNT
-    ftp_pwd = ftp_account.PASSWORD
-    ftp_homepath = ftp_account.HOMEPATH
+    ftp_domain = FTP_ACCOUNT.DOMAIN
+    ftp_user = FTP_ACCOUNT.ACCOUNT
+    ftp_pwd = FTP_ACCOUNT.PASSWORD
+    ftp_homepath = FTP_ACCOUNT.HOMEPATH
     ftp_targetpath = "trained_data"
     ftp_downloadlocaldir = convert_path_sep(traindir)
 

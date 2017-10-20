@@ -1,5 +1,4 @@
-auth/fb_account.py
-auth/ftp_account.py
+auth/accounts.py
 data
 
 # Created by .ignore support plugin (hsz.mobi)
