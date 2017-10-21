@@ -91,7 +91,8 @@ RUN set -ex; \
 RUN git clone https://github.com/CodeRecipeJYP/stylized-camera
 WORKDIR /stylized-camera
 RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install tensorflow
+#RUN pip install --no-cache-dir tensorflow
+RUN pip install --no-cache-dir tensorflow-gpu
 
 COPY auth/accounts.py auth/accounts.py
 
