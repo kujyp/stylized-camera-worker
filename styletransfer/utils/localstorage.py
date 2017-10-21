@@ -18,6 +18,9 @@ def save_img(src, img):
     img = np.clip(img, 0, 255).astype(np.uint8)
     scipy.misc.imsave(src, img)
 
+def remove_file(path):
+    os.remove(path)
+
 def generate_filename_with_time():
     import time
     timestr = time.strftime("%Y%m%d%H%M%S") + "_" + str(time.clock())[-2:]

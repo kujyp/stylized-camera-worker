@@ -1,5 +1,6 @@
 from config import config
 from firebase.app import Firebase
+from styletransfer.utils.localstorage import remove_file
 
 
 def path_join_on_firebase_storage(path1, path2):
@@ -12,5 +13,8 @@ def upload_to_storage(filename):
     storage.child(path).put(filename)
     url = storage.child(path).get_url(False)
     print("upload_to_storage/url = %s" % url)
+
+    import os
+    remove_file(os.path.join(config.OUTPUT_DIR, filename))
 
     return url
