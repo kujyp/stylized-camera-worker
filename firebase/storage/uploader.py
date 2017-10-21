@@ -12,7 +12,7 @@ def upload_to_storage(filename):
     path = path_join_on_firebase_storage(config.STORAGE.DONE_PATH, filename)
     import os
     localpath = os.path.join(config.OUTPUT_DIR, filename)
-    storage.child(path).put(filename)
+    storage.child(path).put(localpath)
     url = storage.child(path).get_url(False)
     print("upload_to_storage/url = %s" % url)
 
