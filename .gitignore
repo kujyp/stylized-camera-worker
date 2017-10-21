@@ -1,5 +1,6 @@
 auth/accounts.py
 data
+config/worker.txt
 
 # Created by .ignore support plugin (hsz.mobi)
 ### Python template

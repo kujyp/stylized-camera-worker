@@ -1,6 +1,7 @@
 import numpy as np
 import scipy.misc
 import skimage.transform
+import os
 
 from config import config
 
@@ -29,3 +30,8 @@ def resize_img(image):
         return image
 
     return skimage.transform.resize(image, config.IMAGE_SIZE)
+
+def get_dirnames(target):
+    for (path, dir, files) in os.walk(target):
+        return dir
+

@@ -3,14 +3,7 @@ import tensorflow as tf
 
 from config import config
 from styletransfer.network.layer import _conv_layer, _residual_block, _conv_tranpose_layer
-
-
-class Singleton(type):
-    _instances = {}
-    def __call__(cls, *args, **kwargs):
-        if cls not in cls._instances:
-            cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
-        return cls._instances[cls]
+from styletransfer.utils.singleton import Singleton
 
 
 class StyleModel(metaclass=Singleton):
