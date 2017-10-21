@@ -19,3 +19,11 @@ def update_done_work_to_database(key, value, uploaded_url):
     value[config.DB.KEY_DONEAT] = get_current_time()
     get_done_ref().child(key).set(value)
     get_working_ref().child(key).remove()
+
+def retrieve_uploaded_work():
+    result = get_listening_ref().get()
+    if result is None:
+        return None
+
+    for each in result.each():
+        return each.item

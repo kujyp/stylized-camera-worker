@@ -11,9 +11,19 @@ from styletransfer.utils.singleton import Singleton
 
 
 class Worker(metaclass=Singleton):
-    _is_working = False
+    class Listener():
+        def __init__(self, action) -> None:
+            super().__init__()
+            self.action = action
+
+        def activate(self):
+            print("Listener,activate/action type = %s" % self.action)
+            if self.action:
+                self.action()
 
     def __init__(self):
+        self._is_working = False
+        self.listener = None
         self.working_queue = queue.Queue()
 
     def load_downloaded_styles(self):
@@ -43,6 +53,10 @@ class Worker(metaclass=Singleton):
             return True
         return False
 
+    def set_listener(self, listener):
+        self.listener = listener
+
+
     def activate_worker(self):
         print('activate_worker')
         if self._is_working:
@@ -63,7 +77,13 @@ class Worker(metaclass=Singleton):
                     break
 
             # notify listener "retrieve db"
+            self.notify_listener_to_retrieve_db()
             self._is_working = False
+
+    def notify_listener_to_retrieve_db(self):
+        if self.listener:
+            self.listener.activate()
+
 
 
 def feedfoward(image_url, style):
