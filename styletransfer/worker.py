@@ -77,8 +77,8 @@ class Worker(metaclass=Singleton):
                     break
 
             # notify listener "retrieve db"
-            self.notify_listener_to_retrieve_db()
             self._is_working = False
+            self.notify_listener_to_retrieve_db()
 
     def notify_listener_to_retrieve_db(self):
         if self.listener:
