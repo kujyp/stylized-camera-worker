@@ -22,7 +22,7 @@ def update_done_work_to_database(key, value, uploaded_url):
 
 def retrieve_uploaded_work():
     result = get_listening_ref().get()
-    if result is None:
+    if result.each() is None:
         return None
 
     for each in result.each():
