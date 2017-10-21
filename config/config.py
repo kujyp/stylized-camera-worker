@@ -29,6 +29,8 @@ class DB:
     Event_PUT = "put"
     Path_ROOT = "/"
 
+class STORAGE:
+    DONE_PATH = "done_images"
 
 def get_worker_name():
     import os
