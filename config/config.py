@@ -18,6 +18,9 @@ class DB:
 
     LISTENING_PATH = "uploaded_tasks"
     WORKING_PATH = "working_tasks"
+    DONE_PATH = 'done_tasks'
+    KEY_UPLOADEDURL = "uploadedUrl"
+    KEY_DONEAT = "doneAt"
     KEY_DOWNLOADURL = 'downloadUrl'
     KEY_PATH = 'path'
     KEY_WORKER = 'worker'

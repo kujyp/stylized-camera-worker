@@ -2,8 +2,10 @@ import os
 import queue
 
 from config import config
+from firebase.database.workdao import update_done_work_to_database
+from firebase.storage.uploader import upload_to_storage
 from styletransfer.network.model import StyleModel
-from styletransfer.utils.localstorage import get_img, generateFilenameWithTime, resize_img, save_img, get_dirnames
+from styletransfer.utils.localstorage import get_img, generate_filename_with_time, resize_img, save_img, get_dirnames
 from styletransfer.utils.remotestorage import downloadcontentfromurl
 from styletransfer.utils.singleton import Singleton
 
@@ -27,9 +29,9 @@ class Worker(metaclass=Singleton):
     def is_working(self):
         return self._is_working
 
-    def enqueue(self, downloadUrl, path, style_name):
-        self.working_queue.put((downloadUrl, path, style_name))
-        print("Worker/enqueue downloadUrl=%s, path=%s" % (downloadUrl, path))
+    def enqueue(self, download_url, path, style_name, key, value):
+        self.working_queue.put((download_url, path, style_name, key, value))
+        print("Worker/enqueue downloadUrl=%s, path=%s" % (download_url, path))
         if self._is_working is True:
             print("enqueue/_is_working is True")
             return
@@ -49,10 +51,13 @@ class Worker(metaclass=Singleton):
         else:
             self._is_working = True
             while True:
-                downloadUrl, path, style_name = self.working_queue.get()
-                print('activate_worker/downloadUrl = %s, styleName = %s' % (downloadUrl, style_name))
-                output_filepath = self.feedfoward(downloadUrl, style_name)
+                download_url, path, style_name, key, value = self.working_queue.get()
+                print('activate_worker/downloadUrl = %s, styleName = %s' % (download_url, style_name))
+                output_filepath = self.feedfoward(download_url, style_name)
                 print('activate_worker/Task done output_filepath = %s' % output_filepath)
+
+                uploaded_url = upload_to_storage(output_filepath)
+                update_done_work_to_database(key, value, uploaded_url)
                 if self.working_queue.empty():
                     print('activate_worker/working_queue is empty')
                     break
@@ -62,7 +67,7 @@ class Worker(metaclass=Singleton):
 
 
 def feedfoward(image_url, style):
-    filename = generateFilenameWithTime()
+    filename = style + "_" + generate_filename_with_time()
     downloadcontentfromurl(image_url, config.CONTENT_BASE, filename)
     filepath = os.path.join(config.CONTENT_BASE, filename)
     content_img = get_img(filepath)

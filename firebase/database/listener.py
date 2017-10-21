@@ -1,5 +1,6 @@
 from config import config
 from firebase.database.reference import get_listening_ref, get_working_ref
+from firebase.database.workdao import get_work_from_database
 from styletransfer.worker import Worker
 
 
@@ -28,14 +29,6 @@ def attach_listener_to_database():
 
 
 
-def get_work_from_database(key, value):
-    print("get_work_from_database")
-    from config.config import get_worker_name
-    value[config.DB.KEY_WORKER] = get_worker_name()
-    from styletransfer.utils.timeutils import get_current_time
-    value[config.DB.KEY_STARTEDAT] = get_current_time()
-    get_working_ref().child(key).set(value)
-    get_listening_ref().child(key).remove()
 
 
 def process_data(key, value):
@@ -44,7 +37,7 @@ def process_data(key, value):
         downloadUrl = value[config.DB.KEY_DOWNLOADURL]
         path = value[config.DB.KEY_PATH]
         style_name = value[config.DB.KEY_STYLE_NAME]
-        Worker().enqueue(downloadUrl, path, style_name)
+        Worker().enqueue(downloadUrl, path, style_name, key, value)
 
 
 def process_first_data(data):

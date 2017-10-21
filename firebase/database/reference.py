@@ -14,5 +14,9 @@ def get_working_ref():
     db = Firebase().get_database()
     return db.child(config.DB.WORKING_PATH)
 
+def get_done_ref():
+    db = Firebase().get_database()
+    return db.child(config.DB.DONE_PATH)
+
 def get_root():
     return Firebase().get_database()
