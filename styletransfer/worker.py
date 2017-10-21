@@ -100,5 +100,5 @@ def feedfoward(image_url, style):
     output_filepath = os.path.join(config.OUTPUT_DIR, filename)
     save_img(output_filepath, output_img[0])
 
-    return output_filepath
+    return filename
 
