@@ -1,3 +1,5 @@
+.idea
+
 auth/accounts.py
 data
 config/worker.txt
