@@ -43,7 +43,7 @@ def get_worker_name():
         worker_config.close()
     else:
         worker_config = open(worker_config_path, "w")
-        worker_name = input("Worker name ? ")
+        worker_name = "default_worker"
         worker_name.replace(' ', '')
         worker_config.write(worker_name)
         worker_config.close()
